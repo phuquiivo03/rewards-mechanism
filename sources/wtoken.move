@@ -3,7 +3,7 @@
 module token::wtoken {
     use sui::coin::{Coin, Self, TreasuryCap};
     use sui::tx_context::{TxContext, Self};
-    use sui::object;
+    use sui::object::{UID};
     use sui::transfer;
     use sui::url::{Self, Url};
 
@@ -25,9 +25,10 @@ module token::wtoken {
         transfer::public_freeze_object(metadata);
     }
 
-    public fun mint(treasury_cap: &mut TreasuryCap<WTOKEN>, amount: u64, receipent: address, ctx: &mut TxContext) {
-        let coin = coin::mint(treasury_cap, amount, ctx);
-        transfer::public_transfer(coin, receipent);
+    public fun mint(treasury_cap: &mut TreasuryCap<WTOKEN>, amount: u64, ctx: &mut TxContext): Coin<WTOKEN> {
+        // let coin = coin::mint(treasury_cap, amount, ctx);
+        // transfer::public_transfer(coin, receipent);
+        coin::mint(treasury_cap, amount, ctx)
     }
 }
 
